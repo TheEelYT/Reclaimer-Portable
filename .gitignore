@@ -410,6 +410,8 @@ cython_debug/
 
 # local ignored files
 /artifacts/
+/Reclaimer.Blam/Resources/xcompress32.dll
+/Reclaimer.Blam/Resources/xcompress64.dll
 /Scripts/Resources/icomake.exe
 /Reclaimer.SetupPackage/Background.png
 /Reclaimer.SetupPackage/Banner.png

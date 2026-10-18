@@ -1,4 +1,4 @@
-﻿using System.Runtime.InteropServices;
+using System.Runtime.InteropServices;
 
 namespace Reclaimer.Blam.Utilities
 {
@@ -32,10 +32,29 @@ namespace Reclaimer.Blam.Utilities
             var compressedSize = compressedData.Length;
             var decompressionContext = 0L;
 
-            XMemCreateDecompressionContext(XMemCodecType.LZX, 0, 0, ref decompressionContext);
-            XMemResetDecompressionContext(decompressionContext);
-            XMemDecompressStream(decompressionContext, outBuffer, ref uncompressedSize, compressedData, ref compressedSize);
-            XMemDestroyDecompressionContext(decompressionContext);
+            try
+            {
+                XMemCreateDecompressionContext(XMemCodecType.LZX, 0, 0, ref decompressionContext);
+                try
+                {
+                    XMemResetDecompressionContext(decompressionContext);
+                    XMemDecompressStream(decompressionContext, outBuffer, ref uncompressedSize, compressedData, ref compressedSize);
+                }
+                finally
+                {
+                    XMemDestroyDecompressionContext(decompressionContext);
+                }
+            }
+            catch (DllNotFoundException ex)
+            {
+                var libraryName = Is64Bit ? "xcompress64.dll" : "xcompress32.dll";
+                throw new DllNotFoundException(
+                    $"LZX decompression requires {libraryName}, which is not bundled with this build. " +
+                    $"Download the raw {libraryName} file from the upstream Reclaimer repository " +
+                    "(Reclaimer.Blam/Resources), place it next to Reclaimer.exe, and restart Reclaimer. " +
+                    "See README-Portable.txt for the download links. If the file is already present, " +
+                    "a dependency of the library may be missing; see the inner exception for details.", ex);
+            }
         }
 
         public static long XMemCreateDecompressionContext(XMemCodecType codecType, int pCodecParams, int flags, ref long pContext)

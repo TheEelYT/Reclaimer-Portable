@@ -21,6 +21,21 @@ conversion, put `ffmpeg.exe` in `Data\Plugins\ffmpeg`, or select its location in
 the Sound Extractor settings. Raw sound extraction can be used without FFmpeg.
 Existing external plugins go in `Data\Plugins\<PluginName>`.
 
+## Optional LZX compression library
+
+`xcompress32.dll` and `xcompress64.dll` are not bundled. Reclaimer starts without
+them, but opening or extracting data that uses LZX compression requires the
+matching library. This Windows x64 build needs only `xcompress64.dll`.
+
+1. Open the upstream [xcompress64.dll file page](https://github.com/Gravemind2401/Reclaimer/blob/36224d7a4581f2a1f255099bf706aa56be9f6e21/Reclaimer.Blam/Resources/xcompress64.dll).
+2. Use **Download raw file** on that page. Do not save the GitHub web page as a DLL.
+3. Put `xcompress64.dll` in the same folder as `Reclaimer.exe`, then restart Reclaimer.
+
+For a custom 32-bit build, use the upstream
+[xcompress32.dll](https://github.com/Gravemind2401/Reclaimer/blob/36224d7a4581f2a1f255099bf706aa56be9f6e21/Reclaimer.Blam/Resources/xcompress32.dll)
+instead. These downloads are supplied by upstream; they are not part of this
+fork's release ZIP or embedded source archive.
+
 The built-in update checker only opens upstream release information; upstream
 MSI downloads do not preserve this portable package. Use this fork's ZIP builds.
 
@@ -40,7 +55,8 @@ self-contained x64 build, and tests startup, shutdown, and portable settings.
 `Source.zip` contains the corresponding source for Reclaimer and Studio,
 including these build scripts. Extract it and run the same command from its
 Reclaimer folder to rebuild. `build-info.json` records the source commits and SDK.
-The GPL licenses for both projects are included. Other bundled components
-retain their respective licenses and notices.
+The GPL licenses for both projects are included. The bundled .NET runtime's
+license and third-party notices are included under `Licenses`. Application
+dependencies remain subject to their own licenses.
 
 Upstream: https://github.com/Gravemind2401/Reclaimer

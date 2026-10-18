@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <!-- cant use MSBuildProjectName because it can end up being something like "ProjectName_tmp" under certain build conditions -->
@@ -45,17 +45,6 @@
             <LastGenOutput>Resources.Designer.cs</LastGenOutput>
             <CustomToolNamespace>Reclaimer.Blam.Properties</CustomToolNamespace>
         </EmbeddedResource>
-    </ItemGroup>
-
-    <ItemGroup>
-        <ContentWithTargetPath Include="Resources\xcompress32.dll">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>xcompress32.dll</TargetPath>
-        </ContentWithTargetPath>
-        <ContentWithTargetPath Include="Resources\xcompress64.dll">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>xcompress64.dll</TargetPath>
-        </ContentWithTargetPath>
     </ItemGroup>
 
 </Project>
