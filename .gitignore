@@ -409,6 +409,7 @@ cython_debug/
 #.idea/
 
 # local ignored files
+/artifacts/
 /Scripts/Resources/icomake.exe
 /Reclaimer.SetupPackage/Background.png
 /Reclaimer.SetupPackage/Banner.png

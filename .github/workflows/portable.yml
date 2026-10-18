@@ -1,0 +1,38 @@
+name: Portable Windows ZIP
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  portable:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: Reclaimer
+      - uses: actions/checkout@v4
+        with:
+          repository: Gravemind2401/Studio
+          ref: 3c3b68a4e0bd330d31f8ec41e85c6751e46bfe86
+          path: Studio
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+      - name: Build self-contained portable ZIP
+        shell: pwsh
+        run: ./Reclaimer/Scripts/Build-Portable.ps1
+      - name: Smoke-test portable application
+        shell: pwsh
+        run: ./Reclaimer/Scripts/Test-Portable.ps1 -Archive (Get-ChildItem ./Reclaimer/artifacts/*.zip).FullName
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Reclaimer-Portable-win-x64
+          path: Reclaimer/artifacts/*
+          if-no-files-found: error

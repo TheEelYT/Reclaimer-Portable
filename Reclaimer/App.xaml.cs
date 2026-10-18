@@ -1,4 +1,4 @@
-﻿using Reclaimer.Plugins;
+using Reclaimer.Plugins;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -80,6 +80,19 @@ namespace Reclaimer
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            try
+            {
+                Directory.CreateDirectory(Settings.AppDataDirectory);
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            {
+                MessageBox.Show($"Reclaimer cannot write to its data folder:\n{Settings.AppDataDirectory}\n\n" +
+                    "Extract Reclaimer into a folder you can write to and try again.\n\n" + ex.Message,
+                    "Reclaimer", MessageBoxButton.OK, MessageBoxImage.Error);
+                Shutdown(1);
+                return;
+            }
+
             if (!SingletonHelper.EnsureSingleInstance(Constants.ApplicationInstanceKey, ProcessCommandLineArguments))
                 return;
 

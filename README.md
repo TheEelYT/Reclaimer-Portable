@@ -1,3 +1,10 @@
+## Portable Windows ZIP
+
+This fork adds a self-contained Windows x64 ZIP with local settings and plugins.
+Extract it and run `Reclaimer.exe`; no installer or separate .NET runtime is needed.
+See [portable instructions](PORTABLE.md) for downloads, data locations, and builds.
+Builds are available under this fork's **Actions > Portable Windows ZIP** workflow.
+
 ## Special Thanks
 For original research on the Blam! engine, contributions and answering questions along the way.
 - Xenomega (Xenon7, DeToX)

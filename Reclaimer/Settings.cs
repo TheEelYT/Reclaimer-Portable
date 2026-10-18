@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using Reclaimer.Models;
 using Reclaimer.Utilities;
 using System.ComponentModel;
@@ -13,7 +13,10 @@ namespace Reclaimer
         private static string settingsJson => Path.Combine(AppDataDirectory, Constants.SettingsFileName);
 
         public static string AppBaseDirectory => AppDomain.CurrentDomain.BaseDirectory;
-        public static string AppDataDirectory => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Constants.AppDataSubfolder);
+        public static bool IsPortable { get; } = File.Exists(Path.Combine(AppBaseDirectory, "portable.flag"));
+        public static string AppDataDirectory { get; } = IsPortable
+            ? Path.Combine(AppBaseDirectory, "Data")
+            : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Constants.AppDataSubfolder);
 
         internal static JsonSerializerSettings SerializerSettings => new JsonSerializerSettings
         {
