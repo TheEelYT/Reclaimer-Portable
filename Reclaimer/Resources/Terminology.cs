@@ -15,7 +15,7 @@ namespace Reclaimer.Resources.Terminology
         public static string View { get; set; }
         public static string Output { get; set; }
         public static string AppDirectory { get; set; } = "App Directory";
-        public static string AppDataDirectory { get; set; } = Settings.IsPortable ? "Portable Data Directory" : "AppData Directory";
+        public static string AppDataDirectory { get; set; } = global::Reclaimer.Settings.IsPortable ? "Portable Data Directory" : "AppData Directory";
         public static string PluginsDirectory { get; set; } = "Plugins Directory";
         public static string Tools { get; set; }
         public static string Settings { get; set; }
